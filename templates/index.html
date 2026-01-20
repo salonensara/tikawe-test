@@ -23,9 +23,15 @@
 
   {% endif %}
   
-<p> <a href="/new_item">Lisää purjelentokone</a>
-  
-  
+  <p> <a href="/new_item">Lisää purjelentokone</a>
+
+  <h2>Kerhon purjelentokoneet:</h2>
+  <ul>
+    {% for item in items %}
+      <li> <a href="/item/{{ item.id }}">{{ item.glider_type }}</a> - {{ item.callsign }} - {{ item.compsign }} - {{ item.glider_class }} - {{ item.options }}</li>
+    {% endfor %}
+  </ul>
+
 </body>
 
 </html>

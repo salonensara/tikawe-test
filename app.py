@@ -4,13 +4,20 @@ from flask import redirect, render_template, request, session
 from werkzeug.security import generate_password_hash, check_password_hash
 import db
 import config
+import items
 
 app = Flask(__name__)
 app.secret_key = config.secret_key
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    all_items = items.get_items()
+    return render_template("index.html", items=all_items)
+
+@app.route("/item/<int:item_id>")
+def show_item(item_id):
+    item = items.get_item(item_id)
+    return render_template("show_item.html", item=item)
 
 @app.route("/new_item")
 def new_item():
@@ -18,7 +25,6 @@ def new_item():
 
 @app.route("/create_item", methods=["POST"])
 def create_item():
-    print(request.form)
     glider_type = request.form["glider_type"]
     callsign = request.form["callsign"]
     compsign = request.form["compsign"]
@@ -26,9 +32,7 @@ def create_item():
     options = request.form["options"]
     user_id = session["user_id"]
 
-    sql = """INSERT INTO items (glider_type, callsign, compsign,
-    glider_class, options, user_id) VALUES (?, ?, ?, ?, ?, ?)"""
-    db.execute(sql, [glider_type, callsign, compsign, glider_class, options, user_id])
+    items.add_item(glider_type, callsign, compsign, glider_class, options, user_id)
 
     return redirect("/")
 
