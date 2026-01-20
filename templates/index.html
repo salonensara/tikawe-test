@@ -10,7 +10,7 @@
   <h1> Purjelentokerho </h1>
 
   {% if session.username %}
-  <p> Olet kirjautunut nimellä {{ session.username }} </p>
+  <p> Olet kirjautunut nimellä {{ session.username }}, ID-numero: {{ session.user_id }} </p>
   
   <p> <a href="/logout">Kirjaudu ulos</a> </p>
     
@@ -22,6 +22,8 @@
   </p>
 
   {% endif %}
+  
+<p> <a href="/new_item">Lisää purjelentokone</a>
   
   
 </body>

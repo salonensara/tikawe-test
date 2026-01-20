@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Lisää kerhoon uusi purjelentokone</title>
+</head>
+
+<body>
+
+  <h1> Lisää kerhoon uusi purjelentokone </h1>
+
+  <form action="/create_item" method="post">
+    <p>
+      Konetyyppi: <br />
+      <input type="text" name="glider_type" />
+    </p>
+
+    <p>
+      Rekisteritunnus: <br />
+      <input type="text" name="callsign" size="8" />
+    </p>
+
+    <p>
+      Kilpailutunnus: <br />
+      <input type="text" name="compsign" size="5" />
+    </p>    
+
+    <p>
+      Luokka: <br />
+      <input type="radio" name="glider_class" value="Vakio" /> Vakio
+      <input type="radio" name="glider_class" value="15 m" /> 15 m
+      <input type="radio" name="glider_class" value="18 m" /> 18 m
+      <input type="radio" name="glider_class" value="Kaksipaikkainen" /> Kaksipaikkainen
+      <input type="radio" name="glider_class" value="Vintage" /> Vintage
+    </p>
+
+    <p>
+      Lisävalinnat:
+      <input type="radio" name="options" value="Ei moottoria" /> Ei moottoria
+      <input type="radio" name="options" value="Turbo" /> Turbo
+      <input type="radio" name="options" value="FES" /> FES
+      <input type="radio" name="options" value="Suihkumoottori" /> Suihkumoottori
+    </p>
+
+    <input type="submit" value="Lisää" />
+  </form>
+</body>
+
+</html>

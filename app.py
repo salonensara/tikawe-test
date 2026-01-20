@@ -12,6 +12,26 @@ app.secret_key = config.secret_key
 def index():
     return render_template("index.html")
 
+@app.route("/new_item")
+def new_item():
+    return render_template("new_item.html")
+
+@app.route("/create_item", methods=["POST"])
+def create_item():
+    print(request.form)
+    glider_type = request.form["glider_type"]
+    callsign = request.form["callsign"]
+    compsign = request.form["compsign"]
+    glider_class = request.form["glider_class"]
+    options = request.form["options"]
+    user_id = session["user_id"]
+
+    sql = """INSERT INTO items (glider_type, callsign, compsign,
+    glider_class, options, user_id) VALUES (?, ?, ?, ?, ?, ?)"""
+    db.execute(sql, [glider_type, callsign, compsign, glider_class, options, user_id])
+
+    return redirect("/")
+
 @app.route("/register")
 def register():
     return render_template("register.html")
@@ -34,25 +54,28 @@ def create():
     return "Tunnus luotu"
     
 @app.route("/login", methods=["GET", "POST"])
+
 def login():
-	if request.method == "GET":
-    		return render_template("login.html")
-    
-    
-	if request.method == "POST":
-		username = request.form["username"]
-		password = request.form["password"]
+    if request.method == "GET":
+        return render_template("login.html")      
+        
+    if request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]
+        sql = "SELECT id, password_hash FROM users WHERE username = ?"
+        result = db.query(sql, [username])[0]
+        user_id = result["id"]
+        password_hash = result["password_hash"]
 
-		sql = "SELECT password_hash FROM users WHERE username = ?"
-		password_hash = db.query(sql, [username])[0][0]
-
-		if check_password_hash(password_hash, password):
-			session["username"] = username
-			return redirect("/")
-		else:
-			return "VIRHE: väärä tunnus tai salasana"
+        if check_password_hash(password_hash, password):
+            session["user_id"] = user_id
+            session["username"] = username
+            return redirect("/")
+        else:
+            return "VIRHE: väärä tunnus tai salasana"
 
 @app.route("/logout")
 def logout():
+    del session["user_id"]
     del session["username"]
     return redirect("/")
