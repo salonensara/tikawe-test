@@ -9,7 +9,7 @@ CREATE TABLE items (
     glider_type TEXT,
     callsign TEXT,
     compsign TEXT,
-    glider_class INTEGER,
+    glider_class TEXT,
     options TEXT,
     user_id INTEGER REFERENCE users
 );

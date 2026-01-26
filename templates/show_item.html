@@ -8,6 +8,17 @@
 <body>
 
   <h1> {{ item.glider_type }} </h1>
+
+  {% if session.user_id == item.user_id %}
+  <p> Olet kirjautunut nimellä {{ session.username }}, ID-numero: {{ session.user_id }} </p>
+  <p>
+    <a href="/edit_item/{{ item.id }}">Muokkaa ilmoitusta</a>
+  </p>
+ 
+
+  {% endif %}
+
+
   <p>Rekisteritunnus: {{ item.callsign }}</p>
   <p>Kilpailutunnus: {{ item.compsign }}</p>
   <p>Luokka: {{ item.glider_class }}</p>
