@@ -12,7 +12,8 @@
   {% if session.user_id == item.user_id %}
   <p> Olet kirjautunut nimellä {{ session.username }}, ID-numero: {{ session.user_id }} </p>
   <p>
-    <a href="/edit_item/{{ item.id }}">Muokkaa ilmoitusta</a>
+    <a href="/edit_item/{{ item.id }}">Muokkaa</a>
+    <a href="/remove_item/{{ item.id }}">Poista</a>
   </p>
  
 
